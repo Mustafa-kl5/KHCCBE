@@ -4,6 +4,7 @@ const { authorization } = require("../../Utils/jwtUtils");
 const validationRole = require("../../validation/validationRole");
 const permissionSchema = require("../../validationSchema/permissionSchema");
 const validationMiddleware = require("../../validation/validationMiddleware");
+const givePermission = require("../../Controllers/superAdmin/givePermission");
 
 const superAdminRoutes = express.Router();
 superAdminRoutes.get(
@@ -12,11 +13,11 @@ superAdminRoutes.get(
   validationRole,
   usersPermission
 );
-superAdminRoutes.post(
+superAdminRoutes.put(
   "/superAdmin/givePermission",
   validationMiddleware(permissionSchema),
   authorization,
   validationRole,
-  usersPermission
+  givePermission
 );
 module.exports = superAdminRoutes;

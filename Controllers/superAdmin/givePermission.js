@@ -1,9 +1,12 @@
-const users = require("../../models/user");
-const usersPermission = async (req, res) => {
+const User = require("../../models/user");
+const givePermission = async (req, res) => {
+  const { permission, userId } = req.body;
   try {
-    const pendingUsers = await users.find({ role: "pending" });
+    const pendingUser = await User.findById({ _id: userId });
+    pendingUser.role = permission;
+    await pendingUser.save();
     res.status(200).json({
-      users: pendingUsers,
+      message: `${pendingUser.firstName} ${pendingUser.lastName} now has the powers of the ${pendingUser.role} department`,
     });
   } catch (error) {
     res.status(500).json({
@@ -13,4 +16,4 @@ const usersPermission = async (req, res) => {
   }
 };
 
-module.exports = usersPermission;
+module.exports = givePermission;
