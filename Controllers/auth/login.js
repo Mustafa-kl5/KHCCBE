@@ -8,7 +8,7 @@ const loginController = async (req, res) => {
     if (user) {
       const passwordCheck = await bcrypt.compare(password, user.password);
       if (passwordCheck) {
-        const token = generateToken({ userId: user._id });
+        const token = generateToken({ userId: user._id, role: user.role });
         res.status(200).json({
           token: token,
           role: user.role,
