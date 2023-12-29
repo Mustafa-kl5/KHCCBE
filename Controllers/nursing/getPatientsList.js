@@ -1,9 +1,9 @@
 const Patient = require("../../models/patient");
 const getPatientList = async (req, res) => {
   try {
-    const patientList = await Patient.find();
+    const patients = await Patient.find();
     res.status(200).json({
-      patientList,
+      patients,
     });
   } catch (error) {
     res.status(500).json({

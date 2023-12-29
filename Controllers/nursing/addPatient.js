@@ -25,7 +25,7 @@ const addPatientController = async (req, res) => {
       sampleDrawing,
     });
     await patient.save();
-    res.status(201).json({ massege: "Patient created successfully!", patient });
+    res.status(201).json({ message: "Patient created successfully!", patient });
   } catch (error) {
     res.status(500).json({
       error,

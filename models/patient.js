@@ -13,6 +13,8 @@ const patientSchema = new mongoose.Schema({
   sampleDrawing: { type: String },
   seen: { type: Boolean, default: false },
   seenBy: { type: String, default: "unseen yet" },
+  isDeleted: { type: Boolean, default: false },
+  deleteReason: { type: String, default: "" },
   createAt: {
     type: Date,
     default: Date.now,
