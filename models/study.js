@@ -11,6 +11,14 @@ const studySchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  closeData: {
+    type: String,
+    default: null,
+  },
+  isClosed: {
+    type: Boolean,
+    default: false,
+  },
 });
 const study = mongoose.model("studies", studySchema);
 

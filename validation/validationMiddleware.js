@@ -6,7 +6,7 @@ const validationMiddleware = (schema) => {
     } catch (error) {
       const { details } = error;
       const message = details.map((i) => i.message).join(",");
-      res.status(422).json({ message: "You are missing field." });
+      res.status(422).json({ message: "You are missing field." + message });
     }
   };
 };
