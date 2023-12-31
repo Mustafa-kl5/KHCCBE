@@ -6,6 +6,7 @@ const { run } = require("./DataBase/DbConnection");
 const authRoutes = require("./routes/auth/authRoutes");
 const superAdminRoutes = require("./routes/superAdmin/superAdminRoutes");
 const publicRoutes = require("./routes/public");
+const nursingRoutes = require("./routes/nursing/nursingRoutes");
 const baseURL = "/api/v1/";
 app.use(
   cors({
@@ -23,5 +24,6 @@ app.get("/", (req, res) => {
 app.use(baseURL, authRoutes);
 app.use(baseURL, superAdminRoutes);
 app.use(baseURL, publicRoutes);
+app.use(baseURL, nursingRoutes);
 const PORT = process.env.PORT || 4111;
 app.listen(PORT, console.log("Server don start for port: " + PORT));
