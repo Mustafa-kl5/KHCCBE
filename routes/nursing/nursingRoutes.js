@@ -8,6 +8,8 @@ const patientSchema = require("../../validationSchema/patientSchema");
 const getPatientList = require("../../Controllers/nursing/getPatientsList");
 const giveDeletePaitentReason = require("../../Controllers/nursing/giveDeletePaitentReason");
 const deletedReasonSchema = require("../../validationSchema/deletedReasonSchema");
+const sampleSchema = require("../../validationSchema/sampleSchema");
+const addSample = require("../../Controllers/nursing/addSample");
 
 const nursingRoutes = express.Router();
 
@@ -17,6 +19,13 @@ nursingRoutes.post(
   authorization,
   validationRole,
   addPatientController
+);
+nursingRoutes.post(
+  "/nursing/addSample",
+  validationMiddleware(sampleSchema),
+  authorization,
+  validationRole,
+  addSample
 );
 nursingRoutes.get(
   "/nursing/patientList",
