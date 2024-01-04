@@ -7,6 +7,7 @@ const freezerSchema = new mongoose.Schema({
   freezerType: { type: String },
   NumberOfShelves: { type: Number },
   BoxesPerShelf: { type: Number },
+  capacity: { type: Number, default: 50000 },
   createAt: {
     type: Date,
     default: Date.now,

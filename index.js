@@ -7,6 +7,7 @@ const authRoutes = require("./routes/auth/authRoutes");
 const superAdminRoutes = require("./routes/superAdmin/superAdminRoutes");
 const publicRoutes = require("./routes/public");
 const nursingRoutes = require("./routes/nursing/nursingRoutes");
+const technicianRoutes = require("./routes/technician/technicianRoutes");
 const baseURL = "/api/v1/";
 app.use(
   cors({
@@ -25,5 +26,6 @@ app.use(baseURL, authRoutes);
 app.use(baseURL, superAdminRoutes);
 app.use(baseURL, publicRoutes);
 app.use(baseURL, nursingRoutes);
+app.use(baseURL, technicianRoutes);
 const PORT = process.env.PORT || 4111;
 app.listen(PORT, console.log("Server don start for port: " + PORT));
