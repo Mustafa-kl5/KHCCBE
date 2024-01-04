@@ -1,4 +1,6 @@
+const generateLog = require("../../Utils/generateLog");
 const Freezer = require("../../models/freezer");
+
 const addFreezer = async (req, res) => {
   const {
     freezerName,
@@ -18,6 +20,11 @@ const addFreezer = async (req, res) => {
       BoxesPerShelf,
     });
     await freezer.save();
+
+    generateLog(
+      req.user.userId,
+      `The employee with super admin privileges has been add new freezer the following with data \n Freezer Name:${freezerName} \n Freezer Model:${freezerName} \n At this location:${freezerLocation} `
+    );
     res.status(201).json({
       message: `${freezerName} freezer added successfully`,
     });

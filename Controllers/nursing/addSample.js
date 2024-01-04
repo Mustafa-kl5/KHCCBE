@@ -1,4 +1,5 @@
 const Sample = require("../../models/sample");
+const generateLog = require("../../Utils/generateLog");
 
 const addSample = async (req, res) => {
   const { studyNumber, samples, patientId } = req.body;
@@ -17,6 +18,10 @@ const addSample = async (req, res) => {
       });
       await sample.save();
     }
+    generateLog(
+      req.user.userId,
+      `The employee from nursing department has been add the following sample with serial number ${sampleSerial} with following`
+    );
     res.status(201).json({ message: "samples are added successfully!" });
   } catch (error) {
     res.status(500).json({

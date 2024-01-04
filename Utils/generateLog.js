@@ -1,6 +1,5 @@
 const Log = require("../models/log");
 const User = require("../models/user");
-
 const generateLog = async (userId, description) => {
   try {
     const user = await User.findById(userId);

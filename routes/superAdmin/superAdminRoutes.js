@@ -13,6 +13,7 @@ const freezerSchema = require("../../validationSchema/freezer");
 const addFreezer = require("../../Controllers/superAdmin/addFreezer");
 const getFreezers = require("../../Controllers/superAdmin/getFreezers");
 const DeleteFreezer = require("../../Controllers/superAdmin/DeleteFreezer");
+const getLogs = require("../../Controllers/superAdmin/getLogs");
 
 const superAdminRoutes = express.Router();
 superAdminRoutes.get(
@@ -30,8 +31,14 @@ superAdminRoutes.get(
 superAdminRoutes.get(
   "/superAdmin/getFreezers",
   authorization,
-  validationRole,
+  validationRole("superAdmin"),
   getFreezers
+);
+superAdminRoutes.get(
+  "/superAdmin/getLogs",
+  authorization,
+  validationRole("superAdmin"),
+  getLogs
 );
 superAdminRoutes.put(
   "/superAdmin/givePermission",
@@ -44,7 +51,7 @@ superAdminRoutes.put(
 superAdminRoutes.delete(
   "/superAdmin/giveDeleteFreezerReason",
   authorization,
-  validationRole,
+  validationRole("superAdmin"),
   DeleteFreezer
 );
 
@@ -60,7 +67,7 @@ superAdminRoutes.post(
   "/superAdmin/addFreezer",
   validationMiddleware(freezerSchema),
   authorization,
-  validationRole,
+  validationRole("superAdmin"),
   addFreezer
 );
 
