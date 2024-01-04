@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 
 const sampleSchema = new mongoose.Schema({
+  storageType: { type: String },
   containerType: { type: String },
   sampleType: { type: String },
   drawnAt: { type: String },

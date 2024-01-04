@@ -10,6 +10,7 @@ const sampleSchema = Joi.object({
       numberOfSamples: Joi.string().required(),
       drawnAt: Joi.string().required(),
       sampleSerial: Joi.string().required(),
+      storageType: Joi.string().required(),
     })
   ),
 });
