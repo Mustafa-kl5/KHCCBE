@@ -1,3 +1,4 @@
+const generateLog = require("../../Utils/generateLog");
 const Patient = require("../../models/patient");
 
 const addPatientController = async (req, res) => {
@@ -25,7 +26,14 @@ const addPatientController = async (req, res) => {
       sampleDrawing,
     });
     await patient.save();
-    res.status(201).json({ message: "Patient created successfully!", patient });
+    generateLog(
+      req.user.userId,
+      `The employee from nursing department has been add the following patient 
+    \n Patient Name ${patientName} with following ${
+        mrn === "" ? `SSN :${ssn}` : `MRN :${mrn}`
+      }`
+    );
+    res.status(201).json({ message: "Patient created successfully!" });
   } catch (error) {
     res.status(500).json({
       error,

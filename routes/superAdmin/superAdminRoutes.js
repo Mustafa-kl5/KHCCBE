@@ -14,27 +14,27 @@ const superAdminRoutes = express.Router();
 superAdminRoutes.get(
   "/superAdmin/userPermission",
   authorization,
-  validationRole,
+  validationRole("superAdmin"),
   usersPermission
 );
 superAdminRoutes.get(
   "/superAdmin/getStudies",
   authorization,
-  validationRole,
+  validationRole("superAdmin"),
   getStudies
 );
 superAdminRoutes.put(
   "/superAdmin/givePermission",
   validationMiddleware(permissionSchema),
   authorization,
-  validationRole,
+  validationRole("superAdmin"),
   givePermission
 );
 superAdminRoutes.post(
   "/superAdmin/addStudy",
   validationMiddleware(studySchema),
   authorization,
-  validationRole,
+  validationRole("superAdmin"),
   uploadFileMiddleware,
   addStudy
 );
