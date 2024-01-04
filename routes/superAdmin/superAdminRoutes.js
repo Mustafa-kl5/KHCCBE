@@ -9,6 +9,10 @@ const studySchema = require("../../validationSchema/study");
 const addStudy = require("../../Controllers/superAdmin/addStudy");
 const uploadFileMiddleware = require("../../Utils/uploadFile");
 const getStudies = require("../../Controllers/superAdmin/getStudies");
+const freezerSchema = require("../../validationSchema/freezer");
+const addFreezer = require("../../Controllers/superAdmin/addFreezer");
+const getFreezers = require("../../Controllers/superAdmin/getFreezers");
+const DeleteFreezer = require("../../Controllers/superAdmin/DeleteFreezer");
 
 const superAdminRoutes = express.Router();
 superAdminRoutes.get(
@@ -23,6 +27,12 @@ superAdminRoutes.get(
   validationRole("superAdmin"),
   getStudies
 );
+superAdminRoutes.get(
+  "/superAdmin/getFreezers",
+  authorization,
+  validationRole,
+  getFreezers
+);
 superAdminRoutes.put(
   "/superAdmin/givePermission",
   validationMiddleware(permissionSchema),
@@ -30,6 +40,14 @@ superAdminRoutes.put(
   validationRole("superAdmin"),
   givePermission
 );
+
+superAdminRoutes.delete(
+  "/superAdmin/giveDeleteFreezerReason",
+  authorization,
+  validationRole,
+  DeleteFreezer
+);
+
 superAdminRoutes.post(
   "/superAdmin/addStudy",
   validationMiddleware(studySchema),
@@ -38,4 +56,12 @@ superAdminRoutes.post(
   uploadFileMiddleware,
   addStudy
 );
+superAdminRoutes.post(
+  "/superAdmin/addFreezer",
+  validationMiddleware(freezerSchema),
+  authorization,
+  validationRole,
+  addFreezer
+);
+
 module.exports = superAdminRoutes;

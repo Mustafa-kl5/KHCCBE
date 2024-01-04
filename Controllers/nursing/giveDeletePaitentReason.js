@@ -1,8 +1,8 @@
 const patient = require("../../models/patient");
 const giveDeletePaitentReason = async (req, res) => {
-  const { patientId, reason } = req.body;
+  const { Id, reason } = req.body;
   try {
-    const deletedPatient = await patient.findById({ _id: patientId });
+    const deletedPatient = await patient.findById({ _id: Id });
     deletedPatient.deleteReason = reason;
     deletedPatient.isDeleted = true;
     await deletedPatient.save();
