@@ -6,6 +6,7 @@ const seen = require("../../Controllers/technician/seen");
 const validationMiddleware = require("../../validation/validationMiddleware");
 const seenSchema = require("../../validationSchema/seenSchema");
 const markAsSeen = require("../../Controllers/technician/seen");
+const getSamples = require("../../Controllers/technician/getSamples");
 
 const technicianRoutes = express.Router();
 
@@ -14,6 +15,12 @@ technicianRoutes.get(
   authorization,
   validationRole("technician"),
   getPatients
+);
+technicianRoutes.get(
+  "/technician/getSamples",
+  authorization,
+  validationRole("technician"),
+  getSamples
 );
 
 technicianRoutes.put(
