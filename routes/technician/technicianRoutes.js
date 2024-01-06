@@ -7,6 +7,10 @@ const validationMiddleware = require("../../validation/validationMiddleware");
 const seenSchema = require("../../validationSchema/seenSchema");
 const markAsSeen = require("../../Controllers/technician/seen");
 const getSamples = require("../../Controllers/technician/getSamples");
+const rejectSample = require("../../Controllers/technician/rejectSample");
+const rejectSampleSchema = require("../../validationSchema/sampleReject");
+const approveSampleSchema = require("../../validationSchema/approveSchema");
+const approveSample = require("../../Controllers/technician/approveSample");
 
 const technicianRoutes = express.Router();
 
@@ -31,4 +35,18 @@ technicianRoutes.put(
   markAsSeen
 );
 
+technicianRoutes.put(
+  "/technician/rejectSample",
+  validationMiddleware(rejectSampleSchema),
+  authorization,
+  validationRole("technician"),
+  rejectSample
+);
+technicianRoutes.put(
+  "/technician/approveSample",
+  validationMiddleware(approveSampleSchema),
+  authorization,
+  validationRole("technician"),
+  approveSample
+);
 module.exports = technicianRoutes;

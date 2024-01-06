@@ -7,6 +7,10 @@ const sampleSchema = new mongoose.Schema({
   drawnAt: { type: String },
   numberOfSamples: { type: String },
   sampleSerial: { type: String },
+  rejectReason: { type: String, default: "" },
+  khccBioSampleCode: { type: String, default: "" },
+  isRejected: { type: Boolean, default: false },
+  isApproved: { type: Boolean, default: false },
   createAt: {
     type: Date,
     default: Date.now,
