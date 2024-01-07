@@ -14,7 +14,7 @@ app.use(
     origin: "*",
   })
 );
-run().catch(console.dir);
+// run().catch(console.dir);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use("/StudiesFiles", express.static("StudiesFiles"));
