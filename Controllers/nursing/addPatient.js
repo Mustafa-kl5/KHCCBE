@@ -3,6 +3,7 @@ const Patient = require("../../models/patient");
 
 const addPatientController = async (req, res) => {
   const {
+    studyId,
     patientName,
     ssn,
     mrn,
@@ -24,6 +25,7 @@ const addPatientController = async (req, res) => {
       admitionRecDate,
       gender,
       sampleDrawing,
+      study: studyId,
     });
     await patient.save();
     generateLog(

@@ -18,6 +18,10 @@ const patientSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  study: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "studies",
+  },
 });
 const patient = mongoose.model("patients", patientSchema);
 

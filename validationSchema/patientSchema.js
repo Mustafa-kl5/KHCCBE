@@ -1,6 +1,7 @@
 const Joi = require("joi");
 
 const patientSchema = Joi.object().keys({
+  studyId: Joi.string().required(),
   patientName: Joi.string().required(),
   ssn: Joi.string().allow("").optional(),
   mrn: Joi.string().allow("").optional(),
