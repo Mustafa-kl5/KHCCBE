@@ -1,11 +1,6 @@
 const bcrypt = require("bcrypt");
 const { generateToken } = require("../../Utils/jwtUtils");
-const {
-  openConnection,
-  closeConnection,
-  executeQuery,
-} = require("../../DataBase/dataBaceHandler");
-const sql = require("mssql");
+const User = require("../../models/user");
 
 const registrationController = async (req, res) => {
   const {
@@ -18,24 +13,32 @@ const registrationController = async (req, res) => {
     lastName,
   } = req.body;
 
-  let pool;
-
   try {
-    // Open the database connection
-    pool = await openConnection();
-    // Check if the user already exists
-    const existingUser = await executeQuery(pool, "SELECT * FROM Users");
+    const existingUser = await User.findOne({ where: { email } });
 
+    if (existingUser) {
+      return res.status(400).json({ message: "Email already exists" });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const user = await User.create({
+      firstName,
+      lastName,
+      employeeId,
+      position,
+      email,
+      password: hashedPassword,
+      department,
+    });
+
+    const token = generateToken({ userId: user._id, role: user.role });
     res.status(201).json({
-      existingUser,
+      token: token,
+      role: user.role,
     });
   } catch (error) {
     console.error("Error in registrationController:", error);
     res.status(500).json({ message: "Internal server error" });
-  } finally {
-    if (pool) {
-      await closeConnection(pool);
-    }
   }
 };
 

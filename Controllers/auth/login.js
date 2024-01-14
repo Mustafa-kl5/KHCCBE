@@ -1,10 +1,10 @@
 const { generateToken } = require("../../Utils/jwtUtils");
-const users = require("../../models/user");
+const User = require("../../models/user");
 const bcrypt = require("bcrypt");
 const loginController = async (req, res) => {
   const { email, password } = req.body;
   try {
-    const user = await users.findOne({ email });
+    const user = await User.findOne({ where: { email } });
     if (user) {
       const passwordCheck = await bcrypt.compare(password, user.password);
       if (passwordCheck) {

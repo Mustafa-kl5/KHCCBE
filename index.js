@@ -8,6 +8,7 @@ const superAdminRoutes = require("./routes/superAdmin/superAdminRoutes");
 const publicRoutes = require("./routes/public");
 const nursingRoutes = require("./routes/nursing/nursingRoutes");
 const technicianRoutes = require("./routes/technician/technicianRoutes");
+const sequelize = require("./DataBase/dataBaceHandler");
 const baseURL = "/api/v1/";
 app.use(
   cors({
@@ -15,6 +16,18 @@ app.use(
   })
 );
 // run().catch(console.dir);
+const runDB = async () => {
+  try {
+    await sequelize.authenticate();
+    await sequelize.sync();
+
+    console.log("Connection has been established successfully.");
+  } catch (error) {
+    console.error("Unable to connect to the database:", error);
+  }
+};
+runDB();
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use("/StudiesFiles", express.static("StudiesFiles"));

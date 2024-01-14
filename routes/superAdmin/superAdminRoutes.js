@@ -24,8 +24,8 @@ superAdminRoutes.get(
 );
 superAdminRoutes.get(
   "/superAdmin/getStudies",
-  authorization,
-  validationRole("superAdmin"),
+  // authorization,
+  // validationRole("superAdmin"),
   getStudies
 );
 superAdminRoutes.get(
@@ -58,8 +58,8 @@ superAdminRoutes.delete(
 superAdminRoutes.post(
   "/superAdmin/addStudy",
   validationMiddleware(studySchema),
-  authorization,
-  validationRole("superAdmin"),
+  // authorization,
+  // validationRole("superAdmin"),
   uploadFileMiddleware,
   addStudy
 );
