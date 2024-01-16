@@ -19,39 +19,39 @@ const superAdminRoutes = express.Router();
 superAdminRoutes.get(
   "/superAdmin/userPermission",
   authorization,
-  validationRole("superAdmin"),
+  validationRole(["superAdmin"]),
   usersPermission
 );
 superAdminRoutes.get(
   "/superAdmin/getStudies",
   authorization,
-  validationRole("superAdmin"),
+  validationRole(["superAdmin"]),
   getStudies
 );
 superAdminRoutes.get(
   "/superAdmin/getFreezers",
   authorization,
-  validationRole("superAdmin"),
+  validationRole(["superAdmin", "technician"]),
   getFreezers
 );
 superAdminRoutes.get(
   "/superAdmin/getLogs",
   authorization,
-  validationRole("superAdmin"),
+  validationRole(["superAdmin"]),
   getLogs
 );
 superAdminRoutes.put(
   "/superAdmin/givePermission",
   validationMiddleware(permissionSchema),
   authorization,
-  validationRole("superAdmin"),
+  validationRole(["superAdmin"]),
   givePermission
 );
 
 superAdminRoutes.delete(
   "/superAdmin/giveDeleteFreezerReason",
   authorization,
-  validationRole("superAdmin"),
+  validationRole(["superAdmin"]),
   DeleteFreezer
 );
 
@@ -59,7 +59,7 @@ superAdminRoutes.post(
   "/superAdmin/addStudy",
   validationMiddleware(studySchema),
   authorization,
-  validationRole("superAdmin"),
+  validationRole(["superAdmin"]),
   uploadFileMiddleware,
   addStudy
 );
@@ -67,7 +67,7 @@ superAdminRoutes.post(
   "/superAdmin/addFreezer",
   validationMiddleware(freezerSchema),
   authorization,
-  validationRole("superAdmin"),
+  validationRole(["superAdmin"]),
   addFreezer
 );
 

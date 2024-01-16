@@ -17,27 +17,27 @@ nursingRoutes.post(
   "/nursing/addPatient",
   validationMiddleware(patientSchema),
   authorization,
-  validationRole("nursing"),
+  validationRole(["nursing"]),
   addPatientController
 );
 nursingRoutes.post(
   "/nursing/addSample",
   validationMiddleware(sampleSchema),
   authorization,
-  validationRole("nursing"),
+  validationRole(["nursing"]),
   addSample
 );
 nursingRoutes.get(
   "/nursing/patientList",
   authorization,
-  validationRole("nursing"),
+  validationRole(["nursing"]),
   getPatientList
 );
 nursingRoutes.put(
   "/nursing/giveDeletePaitentReason",
   validationMiddleware(deletedReasonSchema),
   authorization,
-  validationRole("nursing"),
+  validationRole(["nursing"]),
   giveDeletePaitentReason
 );
 

@@ -11,27 +11,34 @@ const rejectSample = require("../../Controllers/technician/rejectSample");
 const rejectSampleSchema = require("../../validationSchema/sampleReject");
 const approveSampleSchema = require("../../validationSchema/approveSchema");
 const approveSample = require("../../Controllers/technician/approveSample");
+const getApprovalSamples = require("../../Controllers/technician/getApprovalSamples");
 
 const technicianRoutes = express.Router();
 
 technicianRoutes.get(
   "/technician/patients",
   authorization,
-  validationRole("technician"),
+  validationRole(["technician"]),
   getPatients
 );
 technicianRoutes.get(
   "/technician/getSamples",
   authorization,
-  validationRole("technician"),
+  validationRole(["technician"]),
   getSamples
+);
+technicianRoutes.get(
+  "/technician/getApprovalSamples",
+  authorization,
+  validationRole(["technician"]),
+  getApprovalSamples
 );
 
 technicianRoutes.put(
   "/technician/giveSeen",
   validationMiddleware(seenSchema),
   authorization,
-  validationRole("technician"),
+  validationRole(["technician"]),
   markAsSeen
 );
 
@@ -39,14 +46,14 @@ technicianRoutes.put(
   "/technician/rejectSample",
   validationMiddleware(rejectSampleSchema),
   authorization,
-  validationRole("technician"),
+  validationRole(["technician"]),
   rejectSample
 );
 technicianRoutes.put(
   "/technician/approveSample",
   validationMiddleware(approveSampleSchema),
   authorization,
-  validationRole("technician"),
+  validationRole(["technician"]),
   approveSample
 );
 module.exports = technicianRoutes;

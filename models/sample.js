@@ -11,6 +11,7 @@ const sampleSchema = new mongoose.Schema({
   khccBioSampleCode: { type: String, default: "" },
   isRejected: { type: Boolean, default: false },
   isApproved: { type: Boolean, default: false },
+  isStored: { type: Boolean, default: false },
   createAt: {
     type: Date,
     default: Date.now,

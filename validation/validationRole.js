@@ -3,7 +3,7 @@ const validationRole = (role) => {
   return async (req, res, next) => {
     try {
       const TokenRole = req.user.role;
-      if (TokenRole === role) {
+      if (role.includes(TokenRole)) {
         next();
       } else {
         res.status(401).json({

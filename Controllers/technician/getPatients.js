@@ -3,7 +3,7 @@ const getPatientList = async (req, res) => {
   try {
     const { patientName, isDeleted, mrn, ssn } = req.query;
     // Build the filter object based on provided parameters
-    console.log(req.query.studyId);
+
     const filter = {};
     if (patientName) filter.patientName = new RegExp(patientName, "i"); // Case-insensitive search
     if (isDeleted !== undefined) filter.isDeleted = isDeleted === "true"; // Convert to boolean
