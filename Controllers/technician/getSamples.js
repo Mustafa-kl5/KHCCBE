@@ -1,10 +1,22 @@
 const Sample = require("../../models/sample");
+const Study = require("../../models/study");
+const Patient = require("../../models/patient");
+
 const getSamples = async (req, res) => {
   try {
-    const samples = await Sample.find()
-      .populate("studyNumber")
-      .populate("patient");
-    //   .populate("author");
+    const samples = await Sample.findAll({
+      include: [
+        {
+          model: Study,
+          required: true,
+        },
+        {
+          model: Patient,
+          required: true,
+        },
+      ],
+    });
+
     res.status(200).json({
       samples,
     });

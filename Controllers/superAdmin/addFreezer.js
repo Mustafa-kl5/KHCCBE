@@ -11,7 +11,7 @@ const addFreezer = async (req, res) => {
     BoxesPerShelf,
   } = req.body;
   try {
-    const freezer = new Freezer({
+    const freezer = await Freezer.create({
       freezerName,
       freezerModel,
       freezerLocation,
@@ -19,11 +19,10 @@ const addFreezer = async (req, res) => {
       NumberOfShelves,
       BoxesPerShelf,
     });
-    await freezer.save();
 
     generateLog(
       req.user.userId,
-      `The employee with super admin privileges has been add new freezer the following with data \n Freezer Name:${freezerName} \n Freezer Model:${freezerName} \n At this location:${freezerLocation} `
+      `The employee with super admin privileges has been add new freezer the following with data \n Freezer Name:${freezerName} \n Freezer Model:${freezerModel} \n At this location:${freezerLocation} `
     );
     res.status(201).json({
       message: `${freezerName} freezer added successfully`,

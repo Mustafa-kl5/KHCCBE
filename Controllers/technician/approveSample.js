@@ -3,10 +3,11 @@ const Sample = require("../../models/sample");
 const approveSample = async (req, res) => {
   const { sampleId, khccBioSampleCode } = req.body;
   try {
-    const sample = await Sample.findById({ _id: sampleId });
-    sample.isApproved = true;
-    sample.khccBioSampleCode = khccBioSampleCode;
-    await sample.save();
+    await Sample.update(
+      { isApproved: true, khccBioSampleCode: khccBioSampleCode },
+      { where: { _id: sampleId } }
+    );
+    const sample = await Sample.findOne({ where: { _id: sampleId } });
     generateLog(
       req.user.userId,
       `

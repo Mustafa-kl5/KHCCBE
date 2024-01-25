@@ -1,18 +1,36 @@
-const mongoose = require("mongoose");
+const { DataTypes } = require("sequelize");
+const sequelize = require("../DataBase/dataBaceHandler");
 
-const freezerSchema = new mongoose.Schema({
-  freezerName: { type: String },
-  freezerModel: { type: String },
-  freezerLocation: { type: String },
-  freezerType: { type: String },
-  NumberOfShelves: { type: Number },
-  BoxesPerShelf: { type: Number },
-  capacity: { type: Number, default: 50000 },
-  createAt: {
-    type: Date,
-    default: Date.now,
+const Freezer = sequelize.define("Freezer", {
+  _id: {
+    type: DataTypes.STRING,
+    primaryKey: true,
+    allowNull: false,
+    unique: true,
+    defaultValue: DataTypes.UUIDV4,
+  },
+  freezerName: {
+    type: DataTypes.STRING,
+  },
+  freezerModel: {
+    type: DataTypes.STRING,
+  },
+  freezerLocation: {
+    type: DataTypes.STRING,
+  },
+  freezerType: {
+    type: DataTypes.STRING,
+  },
+  NumberOfShelves: {
+    type: DataTypes.INTEGER,
+  },
+  BoxesPerShelf: {
+    type: DataTypes.INTEGER,
+  },
+  capacity: {
+    type: DataTypes.INTEGER,
+    defaultValue: 50000,
   },
 });
-const freezer = mongoose.model("freezers", freezerSchema);
 
-module.exports = freezer;
+module.exports = Freezer;

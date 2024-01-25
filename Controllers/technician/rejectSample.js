@@ -3,10 +3,11 @@ const Sample = require("../../models/sample");
 const rejectSample = async (req, res) => {
   const { sampleId, rejectionReason } = req.body;
   try {
-    const sample = await Sample.findById({ _id: sampleId });
-    sample.isRejected = true;
-    sample.rejectReason = rejectionReason;
-    await sample.save();
+    await Sample.update(
+      { isRejected: true, rejectReason: rejectionReason },
+      { where: { _id: sampleId } }
+    );
+    const sample = await Sample.findOne({ where: { _id: sampleId } });
     generateLog(
       req.user.userId,
       `

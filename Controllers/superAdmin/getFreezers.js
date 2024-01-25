@@ -1,7 +1,7 @@
 const Freezer = require("../../models/freezer");
 const getFreezers = async (req, res) => {
   try {
-    const freezers = await Freezer.find();
+    const freezers = await Freezer.findAll();
     res.status(200).json({
       freezers,
     });

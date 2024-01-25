@@ -1,33 +1,29 @@
-const mongoose = require("mongoose");
+const { DataTypes } = require("sequelize");
+const Study = require("./study");
+const Patient = require("./patient");
+const sequelize = require("../DataBase/dataBaceHandler");
 
-const sampleSchema = new mongoose.Schema({
-  storageType: { type: String },
-  containerType: { type: String },
-  sampleType: { type: String },
-  drawnAt: { type: String },
-  numberOfSamples: { type: String },
-  sampleSerial: { type: String },
-  rejectReason: { type: String, default: "" },
-  khccBioSampleCode: { type: String, default: "" },
-  isRejected: { type: Boolean, default: false },
-  isApproved: { type: Boolean, default: false },
-  isStored: { type: Boolean, default: false },
-  createAt: {
-    type: Date,
-    default: Date.now,
+const Sample = sequelize.define("samples", {
+  _id: {
+    type: DataTypes.STRING,
+    primaryKey: true,
+    allowNull: false,
+    unique: true,
+    defaultValue: DataTypes.UUIDV4,
   },
-  author: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "users",
-  },
-  studyNumber: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "studies",
-  },
-  patient: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "patients",
-  },
+  storageType: { type: DataTypes.STRING },
+  containerType: { type: DataTypes.STRING },
+  sampleType: { type: DataTypes.STRING },
+  drawnAt: { type: DataTypes.STRING },
+  numberOfSamples: { type: DataTypes.STRING },
+  sampleSerial: { type: DataTypes.STRING },
+  rejectReason: { type: DataTypes.STRING, defaultValue: "" },
+  khccBioSampleCode: { type: DataTypes.STRING, defaultValue: "" },
+  isRejected: { type: DataTypes.BOOLEAN, defaultValue: false },
+  isApproved: { type: DataTypes.BOOLEAN, defaultValue: false },
+  createAt: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
 });
-const sample = mongoose.model("samples", sampleSchema);
-module.exports = sample;
+Sample.belongsTo(Study);
+Sample.belongsTo(Patient);
+
+module.exports = Sample;

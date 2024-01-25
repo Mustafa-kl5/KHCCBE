@@ -1,21 +1,19 @@
 const Patient = require("../../models/patient");
 const getPatientList = async (req, res) => {
   try {
-    const { patientName, isDeleted, mrn, ssn } = req.query;
-    // Build the filter object based on provided parameters
-    const filter = {};
-    if (patientName) filter.patientName = new RegExp(patientName, "i"); // Case-insensitive search
-    if (isDeleted !== undefined) filter.isDeleted = isDeleted === "true"; // Convert to boolean
+    const { patientName, isDeleted, mrn, ssn ,studyId} = req.query;
+  
+    // const filter = {};
+    // if (patientName) filter.patientName = new RegExp(patientName, "i"); // Case-insensitive search
+    // if (isDeleted !== undefined) filter.isDeleted = isDeleted === "true"; // Convert to boolean
     // If no filters provided, retrieve all patients
-    const patients =
-      Object.keys(filter).length === 0
-        ? await Patient.find({ study: req.query.studyId })
-        : await Patient.find({ ...filter, study: req.query.studyId });
+    const patients =await Patient.findAll({where:{StudyId:studyId}})
 
     res.status(200).json({
       patients,
     });
   } catch (error) {
+    console.log(error);
     res.status(500).json({
       error,
       message: "Internal Server Error",

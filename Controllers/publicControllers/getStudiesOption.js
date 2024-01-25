@@ -1,7 +1,9 @@
 const Study = require("../../models/study");
 const getStudiesOption = async (req, res) => {
   try {
-    const studies = await Study.find({}, "studyName studyNumber");
+    const studies = await Study.findAll({
+      attributes: ["studyName", "studyNumber", "_id"],
+    });
     res.status(200).json({
       options: studies,
     });

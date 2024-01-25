@@ -1,13 +1,17 @@
-const mongoose = require("mongoose");
+const { DataTypes } = require("sequelize");
+const sequelize = require("../DataBase/dataBaceHandler");
 
-const logSchema = new mongoose.Schema({
-  title: { type: String },
-  description: { type: String },
+const Log = sequelize.define("Log", {
+  title: {
+    type: DataTypes.STRING,
+  },
+  description: {
+    type: DataTypes.STRING,
+  },
   createAt: {
-    type: Date,
-    default: Date.now,
+    type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW,
   },
 });
-const log = mongoose.model("logs", logSchema);
 
-module.exports = log;
+module.exports = Log;

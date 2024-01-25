@@ -1,7 +1,7 @@
 const users = require("../../models/user");
 const usersPermission = async (req, res) => {
   try {
-    const pendingUsers = await users.find({ role: "pending" });
+    const pendingUsers = await users.findAll({ where: { role: "pending" } });
     res.status(200).json({
       users: pendingUsers,
     });
