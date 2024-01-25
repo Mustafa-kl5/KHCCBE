@@ -1,5 +1,6 @@
 const generateLog = require("../../Utils/generateLog");
 const Patient = require("../../models/patient");
+const Study = require("../../models/study");
 
 const addPatientController = async (req, res) => {
   const {
@@ -15,7 +16,8 @@ const addPatientController = async (req, res) => {
     sampleDrawing,
   } = req.body;
   try {
-    const patient = new Patient({
+    const study = await Study.findOne({ where: { _id: studyId } });
+    const patient = await Patient.create({
       patientName,
       ssn,
       mrn,
@@ -25,12 +27,11 @@ const addPatientController = async (req, res) => {
       admitionRecDate,
       gender,
       sampleDrawing,
-      study: studyId,
     });
-    await patient.save();
+    await patient.setStudy(study);
     generateLog(
       req.user.userId,
-      `The employee from nursing department has been add the following patient 
+      `The employee from nursing department has been add the following patient
     \n Patient Name ${patientName} with following ${
         mrn === "" ? `SSN :${ssn}` : `MRN :${mrn}`
       }`

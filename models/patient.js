@@ -1,28 +1,32 @@
-const mongoose = require("mongoose");
-
-const patientSchema = new mongoose.Schema({
-  patientName: { type: String },
-  ssn: { type: String },
-  mrn: { type: String },
-  dayCode: { type: String },
-  researchId: { type: String },
-  birthDate: { type: String },
-  admitionRecDate: { type: String },
-  gender: { type: String },
-  sampleDrawing: { type: String },
-  seen: { type: Boolean, default: false },
-  seenBy: { type: String, default: "unseen yet" },
-  isDeleted: { type: Boolean, default: false },
-  deleteReason: { type: String, default: "" },
-  createAt: {
-    type: Date,
-    default: Date.now,
+const { DataTypes } = require('sequelize');
+const Study = require("./study");
+const sequelize = require("../DataBase/dataBaceHandler");
+const Patient = sequelize.define('patients', {
+   _id: {
+    type: DataTypes.STRING,
+    primaryKey: true,
+    allowNull: false,
+    unique: true,
+    defaultValue: DataTypes.UUIDV4,
   },
-  study: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "studies",
+  patientName: { type: DataTypes.STRING },
+  ssn: { type: DataTypes.STRING },
+  mrn: { type: DataTypes.STRING },
+  dayCode: { type: DataTypes.STRING },
+  researchId: { type: DataTypes.STRING },
+  birthDate: { type: DataTypes.STRING },
+  admitionRecDate: { type: DataTypes.STRING },
+  gender: { type: DataTypes.STRING },
+  sampleDrawing: { type: DataTypes.STRING },
+  seen: { type: DataTypes.BOOLEAN, defaultValue: false },
+  seenBy: { type: DataTypes.STRING, defaultValue: 'unseen yet' },
+  isDeleted: { type: DataTypes.BOOLEAN, defaultValue: false },
+  deleteReason: { type: DataTypes.STRING, defaultValue: '' },
+  createAt: {
+    type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW,
   },
 });
-const patient = mongoose.model("patients", patientSchema);
+Patient.belongsTo(Study)
 
-module.exports = patient;
+module.exports = Patient;

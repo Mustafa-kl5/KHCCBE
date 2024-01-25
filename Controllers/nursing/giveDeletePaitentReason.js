@@ -1,24 +1,25 @@
 const generateLog = require("../../Utils/generateLog");
-const patient = require("../../models/patient");
+const Patient = require("../../models/patient");
 const giveDeletePaitentReason = async (req, res) => {
   const { Id, reason } = req.body;
   try {
-    const deletedPatient = await patient.findById({ _id: Id });
-    deletedPatient.deleteReason = reason;
-    deletedPatient.isDeleted = true;
-    await deletedPatient.save();
+    await Patient.update(
+      { isDeleted: true, deleteReason: reason },
+      { where: { _id: Id } }
+    );
+    const updatedPatient = await Patient.findOne({ where: { _id: Id } });
     generateLog(
       req.user.userId,
       `The employee from nursing department has been delete the following patient with data \n Name: ${
-        deletedPatient.patientName
+        updatedPatient.patientName
       } \n ${
-        deletedPatient.mrn === ""
-          ? `SSN :${deletedPatient.ssn}`
-          : `MRN :${deletedPatient.mrn}`
+        updatedPatient.mrn === ""
+          ? `SSN :${updatedPatient.ssn}`
+          : `MRN :${updatedPatient.mrn}`
       }`
     );
     res.status(200).json({
-      message: `${deletedPatient.patientName} deleted successfully!`,
+      message: `${updatedPatient.patientName} Marked as deleted successfully!`,
     });
   } catch (error) {
     res.status(500).json({

@@ -20,14 +20,11 @@ const addStudy = async (req, res) => {
       await study.addFile(file);
     });
 
-    // generateLog(
-    //   req.user.userId,
-    //   `The employee with super admin privileges has been add new Study the following with data \n Study Name:${studyName} \n Study Number:${studyNumber}`
-    // );
+    generateLog(
+      req.user.userId,
+      `The employee with super admin privileges has been add new Study the following with data \n Study Name:${studyName} \n Study Number:${studyNumber}`
+    );
 
-    // res.status(201).json({
-    //   message: `${studyName.studyName} study added successfully`,
-    // });
     res.status(201).json({
       study,
     });

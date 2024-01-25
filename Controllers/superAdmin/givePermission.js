@@ -3,9 +3,8 @@ const User = require("../../models/user");
 const givePermission = async (req, res) => {
   const { permission, userId } = req.body;
   try {
-    const pendingUser = await User.findById({ _id: userId });
-    pendingUser.role = permission;
-    await pendingUser.save();
+    await User.update({ role: permission }, { where: { _id: userId } });
+    const pendingUser = await User.findOne({ where: { _id: userId } });
     generateLog(
       req.user.userId,
       `The employee with super admin privileges has been give ${permission} privileges to the following pending user \n User Name : ${pendingUser.firstName} ${pendingUser.lastName} \n Employee ID : ${pendingUser.employeeId}`

@@ -18,8 +18,8 @@ const getLogs = require("../../Controllers/superAdmin/getLogs");
 const superAdminRoutes = express.Router();
 superAdminRoutes.get(
   "/superAdmin/userPermission",
-  authorization,
-  validationRole("superAdmin"),
+  // authorization,
+  // validationRole("superAdmin"),
   usersPermission
 );
 superAdminRoutes.get(
@@ -30,8 +30,8 @@ superAdminRoutes.get(
 );
 superAdminRoutes.get(
   "/superAdmin/getFreezers",
-  authorization,
-  validationRole("superAdmin"),
+  // authorization,
+  // validationRole("superAdmin"),
   getFreezers
 );
 superAdminRoutes.get(
@@ -43,15 +43,15 @@ superAdminRoutes.get(
 superAdminRoutes.put(
   "/superAdmin/givePermission",
   validationMiddleware(permissionSchema),
-  authorization,
-  validationRole("superAdmin"),
+  // authorization,
+  // validationRole("superAdmin"),
   givePermission
 );
 
 superAdminRoutes.delete(
-  "/superAdmin/giveDeleteFreezerReason",
-  authorization,
-  validationRole("superAdmin"),
+  "/superAdmin/deleteFreezer",
+  // authorization,
+  // validationRole("superAdmin"),
   DeleteFreezer
 );
 
@@ -66,8 +66,8 @@ superAdminRoutes.post(
 superAdminRoutes.post(
   "/superAdmin/addFreezer",
   validationMiddleware(freezerSchema),
-  authorization,
-  validationRole("superAdmin"),
+  // authorization,
+  // validationRole("superAdmin"),
   addFreezer
 );
 

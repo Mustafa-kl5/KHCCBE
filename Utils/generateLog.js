@@ -2,12 +2,11 @@ const Log = require("../models/log");
 const User = require("../models/user");
 const generateLog = async (userId, description) => {
   try {
-    const user = await User.findById(userId);
-    const log = new Log({
+    const user = await User.findOne({ where: { _id: userId } });
+    await Log.create({
       title: `${user.firstName} ${user.lastName} with the following job number: ${user.employeeId}.`,
       description,
     });
-    await log.save();
   } catch (error) {
     res.status(500).json({
       message: "Internal Server Error",

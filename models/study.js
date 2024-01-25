@@ -1,4 +1,3 @@
-// study.model.js
 const { DataTypes } = require("sequelize");
 const File = require("./file");
 const sequelize = require("../DataBase/dataBaceHandler");

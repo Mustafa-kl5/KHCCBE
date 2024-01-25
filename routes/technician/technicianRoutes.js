@@ -22,8 +22,8 @@ technicianRoutes.get(
 );
 technicianRoutes.get(
   "/technician/getSamples",
-  authorization,
-  validationRole("technician"),
+  // authorization,
+  // validationRole("technician"),
   getSamples
 );
 
