@@ -21,6 +21,7 @@ const Sample = sequelize.define("samples", {
   khccBioSampleCode: { type: DataTypes.STRING, defaultValue: "" },
   isRejected: { type: DataTypes.BOOLEAN, defaultValue: false },
   isApproved: { type: DataTypes.BOOLEAN, defaultValue: false },
+  isStored: { type: DataTypes.BOOLEAN, defaultValue: false },
   createAt: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
 });
 Sample.belongsTo(Study);

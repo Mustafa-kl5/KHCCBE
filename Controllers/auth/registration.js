@@ -17,7 +17,7 @@ const registrationController = async (req, res) => {
     const existingUser = await User.findOne({ where: { email } });
 
     if (existingUser) {
-      return res.status(400).json({ message: "Email already exists" });
+      return res.status(401).json({ message: "Email already exists" });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);

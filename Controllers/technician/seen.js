@@ -4,7 +4,7 @@ const User = require("../../models/user");
 const markAsSeen = async (req, res) => {
   const { patientId } = req.body;
   try {
-    const user = await User.findById({ _id: req.user.userId });
+    const user = await User.findOne({ where: { _id: req.user.userId } });
     await Patient.update(
       { seen: true, seenBy: `${user.firstName} ${user.lastName}` },
       { where: { _id: patientId } }
