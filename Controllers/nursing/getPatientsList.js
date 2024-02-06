@@ -1,19 +1,51 @@
 const Patient = require("../../models/patient");
+const { Op } = require("sequelize");
+
 const getPatientList = async (req, res) => {
   try {
-    const { patientName, isDeleted, mrn, ssn ,studyId} = req.query;
-  
-    // const filter = {};
-    // if (patientName) filter.patientName = new RegExp(patientName, "i"); // Case-insensitive search
-    // if (isDeleted !== undefined) filter.isDeleted = isDeleted === "true"; // Convert to boolean
-    // If no filters provided, retrieve all patients
-    const patients =await Patient.findAll({where:{StudyId:studyId}})
+    const { patientName, isDeleted, studyId, seen } = req.query;
+
+    const filter = {
+      StudyId: studyId,
+    };
+
+    if (patientName) {
+      // Dynamic search on patientName, ssn, or mrn
+      filter[Op.or] = [
+        {
+          patientName: {
+            [Op.like]: `%${patientName}%`,
+          },
+        },
+        {
+          mrn: {
+            [Op.like]: `%${patientName}%`,
+          },
+        },
+        {
+          ssn: {
+            [Op.like]: `%${patientName}%`,
+          },
+        },
+      ];
+    }
+
+    if (isDeleted !== undefined) {
+      filter.isDeleted = isDeleted === "true";
+    }
+    if (seen !== undefined) {
+      filter.seen = seen === "true";
+    }
+
+    const patients = await Patient.findAll({
+      where: filter,
+    });
 
     res.status(200).json({
       patients,
     });
   } catch (error) {
-    console.log(error);
+    console.error(error);
     res.status(500).json({
       error,
       message: "Internal Server Error",
