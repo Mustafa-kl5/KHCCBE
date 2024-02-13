@@ -1,9 +1,8 @@
 const { Sequelize } = require("sequelize");
 
-const sequelize = new Sequelize("khcc", "SA", "P@ssword1234", {
+const sequelize = new Sequelize("KHCC", "SA", "P@ssword1234", {
   host: "localhost",
-  dialect: "mysql",
-  operatorsAliases: false,
+  dialect: "mssql",
   define: {
     freezeTableName: true,
   },
