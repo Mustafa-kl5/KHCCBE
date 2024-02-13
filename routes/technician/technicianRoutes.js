@@ -12,6 +12,9 @@ const rejectSampleSchema = require("../../validationSchema/sampleReject");
 const approveSampleSchema = require("../../validationSchema/approveSchema");
 const approveSample = require("../../Controllers/technician/approveSample");
 const getApprovalSamples = require("../../Controllers/technician/getApprovalSamples");
+const saveSample = require("../../Controllers/technician/saveSample");
+const getEmptyCells = require("../../Controllers/technician/getEmptyCells");
+const sampleToExport = require("../../Controllers/technician/sampleToExport");
 
 const technicianRoutes = express.Router();
 
@@ -32,6 +35,18 @@ technicianRoutes.get(
   authorization,
   validationRole(["technician"]),
   getApprovalSamples
+);
+technicianRoutes.get(
+  "/technician/getEmptyCells",
+  // authorization,
+  // validationRole(["technician"]),
+  getEmptyCells
+);
+technicianRoutes.get(
+  "/technician/sampleToExport",
+  // authorization,
+  // validationRole(["technician"]),
+  sampleToExport
 );
 
 technicianRoutes.put(
@@ -55,5 +70,12 @@ technicianRoutes.put(
   authorization,
   validationRole(["technician"]),
   approveSample
+);
+technicianRoutes.post(
+  "/technician/saveSample",
+  // validationMiddleware(seenSchema),
+  // authorization,
+  // validationRole(["technician"]),
+  saveSample
 );
 module.exports = technicianRoutes;
