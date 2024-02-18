@@ -6,5 +6,4 @@ const File = sequelize.define("File", {
     type: DataTypes.STRING,
   },
 });
-
 module.exports = File;

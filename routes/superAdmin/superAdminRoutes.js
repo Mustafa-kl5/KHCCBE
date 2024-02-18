@@ -9,11 +9,15 @@ const studySchema = require("../../validationSchema/study");
 const addStudy = require("../../Controllers/superAdmin/addStudy");
 const uploadFileMiddleware = require("../../Utils/uploadFile");
 const getStudies = require("../../Controllers/superAdmin/getStudies");
+const getPendingStudies = require("../../Controllers/superAdmin/getPendingStudies");
 const freezerSchema = require("../../validationSchema/freezer");
 const addFreezer = require("../../Controllers/superAdmin/addFreezer");
 const getFreezers = require("../../Controllers/superAdmin/getFreezers");
 const DeleteFreezer = require("../../Controllers/superAdmin/DeleteFreezer");
 const getLogs = require("../../Controllers/superAdmin/getLogs");
+const approveStudy = require("../../Controllers/superAdmin/approveStudy");
+const approveStudySchema = require("../../validationSchema/approveStudySchema");
+const freezerStatistics = require("../../Controllers/superAdmin/freezerStatistics");
 
 const superAdminRoutes = express.Router();
 superAdminRoutes.get(
@@ -29,6 +33,12 @@ superAdminRoutes.get(
   getStudies
 );
 superAdminRoutes.get(
+  "/superAdmin/getPendingStudies",
+  authorization,
+  validationRole(["superAdmin"]),
+  getPendingStudies
+);
+superAdminRoutes.get(
   "/superAdmin/getFreezers",
   authorization,
   validationRole(["superAdmin", "technician"]),
@@ -40,12 +50,25 @@ superAdminRoutes.get(
   validationRole(["superAdmin"]),
   getLogs
 );
+superAdminRoutes.get(
+  "/superAdmin/getFreezerStatistics",
+  // authorization,
+  // validationRole(["superAdmin"]),
+  freezerStatistics
+);
 superAdminRoutes.put(
   "/superAdmin/givePermission",
   validationMiddleware(permissionSchema),
   authorization,
   validationRole(["superAdmin"]),
   givePermission
+);
+superAdminRoutes.put(
+  "/superAdmin/approveStudy",
+  validationMiddleware(approveStudySchema),
+  authorization,
+  validationRole(["superAdmin"]),
+  approveStudy
 );
 
 superAdminRoutes.delete(
@@ -59,7 +82,7 @@ superAdminRoutes.post(
   "/superAdmin/addStudy",
   validationMiddleware(studySchema),
   authorization,
-  validationRole(["superAdmin"]),
+  validationRole(["superAdmin", "nursing", "technician"]),
   uploadFileMiddleware,
   addStudy
 );

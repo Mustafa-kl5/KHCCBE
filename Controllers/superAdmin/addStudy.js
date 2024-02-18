@@ -26,7 +26,7 @@ const addStudy = async (req, res) => {
     );
 
     res.status(201).json({
-      study,
+      message: "Study are add successfully!",
     });
   } catch (error) {
     res.status(500).json({

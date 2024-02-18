@@ -33,6 +33,10 @@ const Study = sequelize.define("Study", {
     type: DataTypes.BOOLEAN,
     defaultValue: false,
   },
+  isApproved: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
+  },
 });
 
 Study.hasMany(File, { as: "files" });

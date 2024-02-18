@@ -2,7 +2,7 @@ const Study = require("../../models/study");
 const studyFile = require("../../models/file");
 const { Op } = require("sequelize");
 
-const getStudies = async (req, res) => {
+const getPendingStudies = async (req, res) => {
   try {
     const { study } = req.query;
     const filter = {};
@@ -33,7 +33,7 @@ const getStudies = async (req, res) => {
     }
     const studies = await Study.findAll({
       include: [{ model: studyFile, as: "files" }],
-      where: { ...filter, isApproved: true },
+      where: { ...filter, isApproved: false },
     });
     res.status(200).json({
       studies: studies,
@@ -45,4 +45,4 @@ const getStudies = async (req, res) => {
   }
 };
 
-module.exports = getStudies;
+module.exports = getPendingStudies;

@@ -57,7 +57,6 @@ const saveSample = async (req, res) => {
       });
       await freezer.addSample(sample);
     });
-    const samples = await Storage.findAll();
     res.status(201).json({ message: "Samples stored successfully!" });
   } catch (error) {
     console.log(error);
