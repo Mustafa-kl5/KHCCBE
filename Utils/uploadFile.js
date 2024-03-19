@@ -10,6 +10,7 @@ const extractAndSaveFile = (base64String, fileType) => {
     "image/jpeg": "jpg",
     "image/png": "png",
     "image/gif": "gif",
+    "application/pdf": "pdf",
   };
 
   const fileExtension = extensions[fileType];

@@ -14,7 +14,6 @@ const DeleteFreezer = async (req, res) => {
       message: `${deletedFreezer.freezerName} deleted successfully!`,
     });
   } catch (error) {
-    console.log(error);
     res.status(500).json({
       error,
       message: "Internal Server Error",

@@ -34,7 +34,6 @@ const addSample = async (req, res) => {
 
     res.status(201).json({ message: "samples are added successfully!" });
   } catch (error) {
-    console.log(error);
     res.status(500).json({
       error,
       message: "Internal Server Error",

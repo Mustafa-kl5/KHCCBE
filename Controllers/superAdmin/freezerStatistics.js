@@ -27,7 +27,6 @@ const freezerStatistics = async (req, res) => {
       statistics,
     });
   } catch (error) {
-    console.log(error);
     res.status(500).json({
       message: "Internal Server Error",
     });

@@ -15,7 +15,6 @@ app.use(
     origin: "*",
   })
 );
-// run().catch(console.dir);
 const runDB = async () => {
   try {
     await sequelize.authenticate();
@@ -30,10 +29,6 @@ runDB();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use("/StudiesFiles", express.static("StudiesFiles"));
-app.get("/", (req, res) => {
-  res.send("server is active");
-  console.log("server active");
-});
 app.use(baseURL, authRoutes);
 app.use(baseURL, superAdminRoutes);
 app.use(baseURL, publicRoutes);

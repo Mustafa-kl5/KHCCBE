@@ -5,7 +5,7 @@ const { Op } = require("sequelize");
 
 const getSamples = async (req, res) => {
   try {
-    const { searchData, isApproved, isRejected } = req.query;
+    const { searchData, isApproved, isRejected, studyId } = req.query;
     const filter = {};
     if (searchData) {
       filter[Op.or] = [
@@ -53,7 +53,7 @@ const getSamples = async (req, res) => {
           required: true,
         },
       ],
-      where: filter,
+      where: { ...filter, studyId },
     });
 
     res.status(200).json({

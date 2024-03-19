@@ -4,7 +4,7 @@ const { Op } = require("sequelize");
 
 const sampleToExport = async (req, res) => {
   try {
-    const { searchData } = req.query;
+    const { searchData, studyId } = req.query;
     const filter = {};
 
     if (searchData) {
@@ -37,12 +37,11 @@ const sampleToExport = async (req, res) => {
         {
           model: Storage,
           as: "samples",
-          where: filter,
+          where: { ...filter, studyNumber: studyId },
           required: true,
         },
       ],
     });
-
     res.status(200).json({
       freezers,
     });

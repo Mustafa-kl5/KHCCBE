@@ -15,6 +15,8 @@ const getApprovalSamples = require("../../Controllers/technician/getApprovalSamp
 const saveSample = require("../../Controllers/technician/saveSample");
 const getEmptyCells = require("../../Controllers/technician/getEmptyCells");
 const sampleToExport = require("../../Controllers/technician/sampleToExport");
+const removeSamplesFormFreezer = require("../../Controllers/technician/removeSamplesFormFreezer");
+const removeSample = require("../../validationSchema/removeSamples");
 
 const technicianRoutes = express.Router();
 
@@ -26,8 +28,8 @@ technicianRoutes.get(
 );
 technicianRoutes.get(
   "/technician/getSamples",
-  authorization,
-  validationRole(["technician"]),
+  // authorization,
+  // validationRole(["technician"]),
   getSamples
 );
 technicianRoutes.get(
@@ -47,6 +49,13 @@ technicianRoutes.get(
   // authorization,
   // validationRole(["technician"]),
   sampleToExport
+);
+technicianRoutes.delete(
+  "/technician/removeSamplesFormFreezer",
+  // validationMiddleware(removeSample),
+  // authorization,
+  // validationRole(["technician"]),
+  removeSamplesFormFreezer
 );
 
 technicianRoutes.put(

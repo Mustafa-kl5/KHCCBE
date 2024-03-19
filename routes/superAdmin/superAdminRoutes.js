@@ -23,8 +23,8 @@ const studiesStatistics = require("../../Controllers/superAdmin/studiesStatistic
 const superAdminRoutes = express.Router();
 superAdminRoutes.get(
   "/superAdmin/userPermission",
-  // authorization,
-  // validationRole(["superAdmin"]),
+  authorization,
+  validationRole(["superAdmin"]),
   usersPermission
 );
 superAdminRoutes.get(
@@ -53,14 +53,14 @@ superAdminRoutes.get(
 );
 superAdminRoutes.get(
   "/superAdmin/getFreezerStatistics",
-  // authorization,
-  // validationRole(["superAdmin"]),
+  authorization,
+  validationRole(["superAdmin"]),
   freezerStatistics
 );
 superAdminRoutes.get(
   "/superAdmin/getStudiesStatistics",
-  authorization,
-  validationRole(["superAdmin"]),
+  // authorization,
+  // validationRole(["superAdmin"]),
   studiesStatistics
 );
 superAdminRoutes.put(

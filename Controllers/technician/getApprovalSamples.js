@@ -4,7 +4,7 @@ const Patient = require("../../models/patient");
 const { Op } = require("sequelize");
 const getApprovalSamples = async (req, res) => {
   try {
-    const { searchData } = req.query;
+    const { searchData, studyId } = req.query;
     const filter = {};
     if (searchData) {
       filter[Op.or] = [
@@ -31,7 +31,7 @@ const getApprovalSamples = async (req, res) => {
       ];
     }
     const samples = await Sample.findAll({
-      where: { isApproved: true, isStored: false, ...filter },
+      where: { isApproved: true, isStored: false, ...filter, studyId },
       include: [
         {
           model: Study,
