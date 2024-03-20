@@ -28,8 +28,8 @@ technicianRoutes.get(
 );
 technicianRoutes.get(
   "/technician/getSamples",
-  // authorization,
-  // validationRole(["technician"]),
+  authorization,
+  validationRole(["technician"]),
   getSamples
 );
 technicianRoutes.get(
@@ -40,21 +40,20 @@ technicianRoutes.get(
 );
 technicianRoutes.get(
   "/technician/getEmptyCells",
-  // authorization,
-  // validationRole(["technician"]),
+  authorization,
+  validationRole(["technician"]),
   getEmptyCells
 );
 technicianRoutes.get(
   "/technician/sampleToExport",
-  // authorization,
-  // validationRole(["technician"]),
+  authorization,
+  validationRole(["technician"]),
   sampleToExport
 );
 technicianRoutes.delete(
   "/technician/removeSamplesFormFreezer",
-  // validationMiddleware(removeSample),
-  // authorization,
-  // validationRole(["technician"]),
+  authorization,
+  validationRole(["technician"]),
   removeSamplesFormFreezer
 );
 
@@ -82,9 +81,8 @@ technicianRoutes.put(
 );
 technicianRoutes.post(
   "/technician/saveSample",
-  // validationMiddleware(seenSchema),
-  // authorization,
-  // validationRole(["technician"]),
+  authorization,
+  validationRole(["technician"]),
   saveSample
 );
 module.exports = technicianRoutes;

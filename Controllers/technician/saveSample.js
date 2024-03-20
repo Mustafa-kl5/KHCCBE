@@ -56,7 +56,14 @@ const saveSample = async (req, res) => {
         sampleType,
       });
       await freezer.addSample(sample);
+      generateLog(
+        req.user.userId,
+        `The employee with technician privileges has been add sample to freezer ${
+          freezer.freezerName
+        } with this sample serial :${sampleSerial} at cell ${element.trim()}`
+      );
     });
+
     res.status(201).json({ message: "Samples stored successfully!" });
   } catch (error) {
     res.status(500).json({

@@ -59,8 +59,8 @@ superAdminRoutes.get(
 );
 superAdminRoutes.get(
   "/superAdmin/getStudiesStatistics",
-  // authorization,
-  // validationRole(["superAdmin"]),
+  authorization,
+  validationRole(["superAdmin"]),
   studiesStatistics
 );
 superAdminRoutes.put(
