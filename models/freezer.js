@@ -1,6 +1,7 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../DataBase/dataBaceHandler");
 const Storage = require("./storage");
+const StorageBackUp = require("./storageBackUp");
 const Freezer = sequelize.define("Freezer", {
   _id: {
     type: DataTypes.STRING,
@@ -34,4 +35,6 @@ const Freezer = sequelize.define("Freezer", {
 });
 Freezer.hasMany(Storage, { as: "samples" });
 Storage.belongsTo(Freezer);
+Freezer.hasMany(StorageBackUp, { as: "samplesBackUp" });
+StorageBackUp.belongsTo(Freezer);
 module.exports = Freezer;

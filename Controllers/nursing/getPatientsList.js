@@ -10,7 +10,6 @@ const getPatientList = async (req, res) => {
     };
 
     if (patientName) {
-      // Dynamic search on patientName, ssn, or mrn
       filter[Op.or] = [
         {
           patientName: {

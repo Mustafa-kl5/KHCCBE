@@ -17,6 +17,7 @@ const getEmptyCells = require("../../Controllers/technician/getEmptyCells");
 const sampleToExport = require("../../Controllers/technician/sampleToExport");
 const removeSamplesFormFreezer = require("../../Controllers/technician/removeSamplesFormFreezer");
 const removeSample = require("../../validationSchema/removeSamples");
+const samplesBackups = require("../../Controllers/technician/samplesBackups");
 
 const technicianRoutes = express.Router();
 
@@ -49,6 +50,12 @@ technicianRoutes.get(
   authorization,
   validationRole(["technician"]),
   sampleToExport
+);
+technicianRoutes.get(
+  "/technician/sampleToExportBackup",
+  authorization,
+  validationRole(["technician", "superAdmin"]),
+  samplesBackups
 );
 technicianRoutes.delete(
   "/technician/removeSamplesFormFreezer",

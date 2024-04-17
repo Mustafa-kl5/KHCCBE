@@ -19,6 +19,7 @@ const approveStudy = require("../../Controllers/superAdmin/approveStudy");
 const approveStudySchema = require("../../validationSchema/approveStudySchema");
 const freezerStatistics = require("../../Controllers/superAdmin/freezerStatistics");
 const studiesStatistics = require("../../Controllers/superAdmin/studiesStatistics");
+const hotSearch = require("../../Controllers/superAdmin/hotSearch");
 
 const superAdminRoutes = express.Router();
 superAdminRoutes.get(
@@ -62,6 +63,12 @@ superAdminRoutes.get(
   authorization,
   validationRole(["superAdmin"]),
   studiesStatistics
+);
+superAdminRoutes.get(
+  "/superAdmin/hotSearch",
+  authorization,
+  validationRole(["superAdmin", "technician"]),
+  hotSearch
 );
 superAdminRoutes.put(
   "/superAdmin/givePermission",
