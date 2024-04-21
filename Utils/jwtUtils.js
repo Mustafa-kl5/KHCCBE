@@ -5,7 +5,7 @@ const secretKey = process.env.JWT_SECRET;
 
 const generateToken = (data) => {
   const payload = { ...data, role: data.role || "pending" };
-  return jwt.sign(payload, secretKey, { expiresIn: "24h" });
+  return jwt.sign(payload, secretKey, { expiresIn: "1min" });
 };
 
 const authorization = (req, res, next) => {
@@ -13,7 +13,7 @@ const authorization = (req, res, next) => {
   try {
     if (!token) {
       return res.status(401).json({
-        message: "You are not authorized to access this recourse.",
+        message: "You are not authorized to access this resource.",
       });
     }
     const decoded = jwt.verify(token, secretKey);
@@ -21,6 +21,11 @@ const authorization = (req, res, next) => {
     req.user = { userId, role };
     next();
   } catch (error) {
+    if (error.name === "TokenExpiredError") {
+      return res.status(401).json({
+        message: "Token has expired. Please log in again.",
+      });
+    }
     res.status(500).json({
       error,
       message: "Internal Server Error",
