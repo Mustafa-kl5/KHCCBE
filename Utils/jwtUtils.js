@@ -1,7 +1,13 @@
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
-dotenv.config();
-const secretKey = process.env.JWT_SECRET;
+const env = process.env.NODE_ENV || "local";
+dotenv.config({ path: `.env.${env}` });
+let secretKey;
+if (process.env.NODE_ENV === "production") {
+  secretKey = process.env.JWT_SECRET;
+} else {
+  secretKey = process.env.JWT_SECRET;
+}
 
 const generateToken = (data) => {
   const payload = { ...data, role: data.role || "pending" };

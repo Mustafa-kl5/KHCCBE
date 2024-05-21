@@ -5,13 +5,15 @@
   "main": "index.js",
   "scripts": {
     "devStart": "nodemon index.js",
+    "start": "node index.js",
+    "prodStart": "NODE_ENV=production node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Mustafa-kl5/KHCCBE.git"
   },
-  "author": "",
+  "author": "Mustafa Mahmood",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Mustafa-kl5/KHCCBE/issues"

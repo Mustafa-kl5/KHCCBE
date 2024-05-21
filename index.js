@@ -1,15 +1,25 @@
+const dotenv = require("dotenv");
+const env = process.env.NODE_ENV || "local";
+dotenv.config({ path: `.env.${env}` });
 const express = require("express");
 const app = express();
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const { run } = require("./DataBase/DbConnection");
 const authRoutes = require("./routes/auth/authRoutes");
 const superAdminRoutes = require("./routes/superAdmin/superAdminRoutes");
 const publicRoutes = require("./routes/public");
 const nursingRoutes = require("./routes/nursing/nursingRoutes");
 const technicianRoutes = require("./routes/technician/technicianRoutes");
-const sequelize = require("./DataBase/dataBaceHandler");
+const sequelize = require("./DataBase/DataBaseHandler");
 const baseURL = "/api/v1/";
+
+let port;
+if (process.env.NODE_ENV === "production") {
+  port = process.env.PORT;
+} else {
+  port = process.env.PORT;
+}
+
 app.use(
   cors({
     origin: "*",
@@ -34,5 +44,5 @@ app.use(baseURL, superAdminRoutes);
 app.use(baseURL, publicRoutes);
 app.use(baseURL, nursingRoutes);
 app.use(baseURL, technicianRoutes);
-const PORT = process.env.PORT || 4111;
-app.listen(PORT, console.log("Server don start for port: " + PORT));
+
+app.listen(port, console.log("Server don start for port: " + port));
