@@ -11,7 +11,7 @@ if (process.env.NODE_ENV === "production") {
 
 const generateToken = (data) => {
   const payload = { ...data, role: data.role || "pending" };
-  return jwt.sign(payload, secretKey, { expiresIn: "1min" });
+  return jwt.sign(payload, secretKey, { expiresIn: "24h" });
 };
 
 const authorization = (req, res, next) => {
