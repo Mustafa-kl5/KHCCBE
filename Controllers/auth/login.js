@@ -14,12 +14,12 @@ const loginController = async (req, res) => {
           role: user.role,
         });
       } else {
-        res.status(401).json({
+        res.status(400).json({
           message: "Email or password in wrong",
         });
       }
     } else {
-      res.status(401).json({
+      res.status(400).json({
         message: "User Not Found",
       });
     }

@@ -10,6 +10,7 @@ const giveDeletePaitentReason = require("../../Controllers/nursing/giveDeletePai
 const deletedReasonSchema = require("../../validationSchema/deletedReasonSchema");
 const sampleSchema = require("../../validationSchema/sampleSchema");
 const addSample = require("../../Controllers/nursing/addSample");
+const getPatient = require("../../Controllers/nursing/getPatient");
 
 const nursingRoutes = express.Router();
 
@@ -32,6 +33,12 @@ nursingRoutes.get(
   authorization,
   validationRole(["nursing"]),
   getPatientList
+);
+nursingRoutes.get(
+  "/nursing/foundPatient",
+  authorization,
+  validationRole(["nursing"]),
+  getPatient
 );
 nursingRoutes.put(
   "/nursing/giveDeletePaitentReason",
