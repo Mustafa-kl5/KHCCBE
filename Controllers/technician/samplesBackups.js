@@ -5,51 +5,40 @@ const { Op } = require("sequelize");
 const samplesBackups = async (req, res) => {
   try {
     const { searchData, studyId } = req.query;
-    const filter = {};
+
+    if (!studyId) {
+      return res.status(400).json({
+        message: "studyId parameter is required",
+      });
+    }
+
+    const filter = {
+      studyNumber: studyId,
+    };
 
     if (searchData) {
       filter[Op.or] = [
-        {
-          "$samples.sampleSerial$": {
-            [Op.like]: `%${searchData}%`,
-          },
-        },
-        {
-          "$samples.patientName$": {
-            [Op.like]: `%${searchData}%`,
-          },
-        },
-        {
-          "$samples.mrn$": {
-            [Op.like]: `%${searchData}%`,
-          },
-        },
-        {
-          "$samples.ssn$": {
-            [Op.like]: `%${searchData}%`,
-          },
-        },
+        { sampleSerial: { [Op.like]: `%${searchData}%` } },
+        { patientName: { [Op.like]: `%${searchData}%` } },
+        { mrn: { [Op.like]: `%${searchData}%` } },
+        { ssn: { [Op.like]: `%${searchData}%` } },
       ];
     }
-
     const freezers = await Freezer.findAll({
       include: [
         {
           model: StorageBackUp,
           as: "samplesBackUp",
-          where: { ...filter, studyNumber: studyId },
+          where: filter,
           required: true,
         },
       ],
     });
-    res.status(200).json({
-      freezers,
-    });
+
+    res.status(200).json({ freezers });
   } catch (error) {
-    console.log(error);
-    res.status(500).json({
-      message: "Internal Server Error",
-    });
+    console.error("Error fetching samples backups:", error);
+    res.status(500).json({ message: "Internal Server Error" });
   }
 };
 
