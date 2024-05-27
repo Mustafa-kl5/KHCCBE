@@ -37,7 +37,7 @@ nursingRoutes.get(
 nursingRoutes.get(
   "/nursing/foundPatient",
   authorization,
-  validationRole(["nursing"]),
+  validationRole(["nursing", "technician"]),
   getPatient
 );
 nursingRoutes.put(
