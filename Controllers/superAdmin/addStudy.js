@@ -29,7 +29,9 @@ const addStudy = async (req, res) => {
       message: "Study are add successfully!",
     });
   } catch (error) {
+    console.log(error);
     res.status(500).json({
+      
       message: "Internal Server Error",
     });
   }

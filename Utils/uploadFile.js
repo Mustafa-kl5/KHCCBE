@@ -23,7 +23,7 @@ const extractAndSaveFile = (base64String, fileType) => {
 
   try {
     fs.writeFileSync(filepath, binaryData);
-    const fileURL = `http://localhost:4111/${filepath}`;
+    const fileURL = `http://192.168.20.38:4111/${filepath}`;
     return fileURL;
   } catch (error) {
     console.error("Error writing file:", error);
@@ -58,6 +58,7 @@ const uploadFileMiddleware = (req, res, next) => {
       next();
     })
     .catch((error) => {
+      console.log(error);
       res.status(500).json({ error: "Internal Server Error" });
     });
 };
