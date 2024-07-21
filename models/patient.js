@@ -1,8 +1,8 @@
-const { DataTypes } = require('sequelize');
+const { DataTypes } = require("sequelize");
 const Study = require("./study");
-const sequelize = require("../DataBase/dataBaceHandler");
-const Patient = sequelize.define('patients', {
-   _id: {
+const sequelize = require("../DataBase/DataBaseHandler");
+const Patient = sequelize.define("patients", {
+  _id: {
     type: DataTypes.STRING,
     primaryKey: true,
     allowNull: false,
@@ -19,14 +19,14 @@ const Patient = sequelize.define('patients', {
   gender: { type: DataTypes.STRING },
   sampleDrawing: { type: DataTypes.STRING },
   seen: { type: DataTypes.BOOLEAN, defaultValue: false },
-  seenBy: { type: DataTypes.STRING, defaultValue: 'unseen yet' },
+  seenBy: { type: DataTypes.STRING, defaultValue: "unseen yet" },
   isDeleted: { type: DataTypes.BOOLEAN, defaultValue: false },
-  deleteReason: { type: DataTypes.STRING, defaultValue: '' },
+  deleteReason: { type: DataTypes.STRING, defaultValue: "" },
   createAt: {
     type: DataTypes.DATE,
     defaultValue: DataTypes.NOW,
   },
 });
-Patient.belongsTo(Study)
+Patient.belongsTo(Study);
 
 module.exports = Patient;

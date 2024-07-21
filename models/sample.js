@@ -1,7 +1,7 @@
 const { DataTypes } = require("sequelize");
 const Study = require("./study");
 const Patient = require("./patient");
-const sequelize = require("../DataBase/dataBaceHandler");
+const sequelize = require("../DataBase/DataBaseHandler");
 
 const Sample = sequelize.define("samples", {
   _id: {

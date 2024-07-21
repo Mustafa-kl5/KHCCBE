@@ -3,7 +3,7 @@ const { Op } = require("sequelize");
 
 const getLogs = async (req, res) => {
   try {
-    const { name } = req.query;
+    const { name, page = 1, pageSize = 10 } = req.query;
     const filter = {};
 
     if (name) {
@@ -15,13 +15,22 @@ const getLogs = async (req, res) => {
         },
       ];
     }
-    const logs = await Log.findAll({ where: filter });
+
+    const offset = (page - 1) * pageSize;
+    const limit = parseInt(pageSize);
+
+    const logs = await Log.findAll({ where: filter, offset, limit });
+    const totalLogs = await Log.count({ where: filter });
     res.status(200).json({
-      logs: logs,
+      logs,
+      page,
+      pageSize,
+      totalLogs,
     });
   } catch (error) {
+    console.error(error);
     res.status(500).json({
-      message: "Internal Server Error",
+      error,
     });
   }
 };

@@ -1,6 +1,6 @@
 const { DataTypes } = require("sequelize");
 const File = require("./file");
-const sequelize = require("../DataBase/dataBaceHandler");
+const sequelize = require("../DataBase/DataBaseHandler");
 sequelize;
 const Study = sequelize.define("Study", {
   _id: {

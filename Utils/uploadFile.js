@@ -1,4 +1,15 @@
 const fs = require("fs");
+const dotenv = require("dotenv");
+const env = process.env.NODE_ENV || "local";
+dotenv.config({ path: `.env.${env}` });
+let baseFileURL, port;
+if (process.env.NODE_ENV === "production") {
+  port = process.env.PORT;
+  baseFileURL = process.env.PROD_FILE_BASE_URL;
+} else {
+  port = process.env.PORT;
+  baseFileURL = process.env.LOCAL_FILE_BASE_URL;
+}
 
 const extractAndSaveFile = (base64String, fileType) => {
   const extensions = {
@@ -23,7 +34,7 @@ const extractAndSaveFile = (base64String, fileType) => {
 
   try {
     fs.writeFileSync(filepath, binaryData);
-    const fileURL = `http://localhost:4111/${filepath}`;
+    const fileURL = `${baseFileURL}:${port}/${filepath}`;
     return fileURL;
   } catch (error) {
     console.error("Error writing file:", error);
@@ -55,6 +66,7 @@ const uploadFileMiddleware = (req, res, next) => {
   uploadFile(files)
     .then((uploadedFiles) => {
       req.uploadedFiles = uploadedFiles;
+      console.log(uploadedFiles);
       next();
     })
     .catch((error) => {
