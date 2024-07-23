@@ -18,6 +18,8 @@ const sampleToExport = require("../../Controllers/technician/sampleToExport");
 const removeSamplesFormFreezer = require("../../Controllers/technician/removeSamplesFormFreezer");
 const removeSample = require("../../validationSchema/removeSamples");
 const samplesBackups = require("../../Controllers/technician/samplesBackups");
+const GenerateReportForSampleOnFreezer = require("../../Controllers/technician/reports");
+const GenerateReportForExportedSample = require("../../Controllers/technician/backUpReport");
 
 const technicianRoutes = express.Router();
 
@@ -56,6 +58,18 @@ technicianRoutes.get(
   authorization,
   validationRole(["technician", "superAdmin"]),
   samplesBackups
+);
+technicianRoutes.get(
+  "/technician/GenerateReportForSampleOnFreezer",
+  authorization,
+  validationRole(["technician"]),
+  GenerateReportForSampleOnFreezer
+);
+technicianRoutes.get(
+  "/technician/GenerateReportForExportedSample",
+  authorization,
+  validationRole(["technician"]),
+  GenerateReportForExportedSample
 );
 technicianRoutes.delete(
   "/technician/removeSamplesFormFreezer",

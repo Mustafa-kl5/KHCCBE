@@ -33,7 +33,6 @@ const registrationController = async (req, res) => {
 
     const token = generateToken({ userId: user._id, role: user.role });
     res.status(201).json({
-      token: token,
       role: user.role,
     });
   } catch (error) {
